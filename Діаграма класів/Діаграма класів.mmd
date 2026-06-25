@@ -1,0 +1,58 @@
+classDiagram
+    class User {
+        <<abstract>>
+        #id: UUID
+        #email: String
+        #passwordHash: String
+        +login(email: String, pass: String) Boolean
+        +logout() void
+    }
+
+    class RegisteredUser {
+        -quotaRemaining: Integer
+        +uploadDocument(file: File) Document
+        +startJob(doc: Document, prompt: String) ExtractionJob
+        +viewHistory() List~ExtractionJob~
+    }
+
+    class Admin {
+        -accessLevel: Integer
+        +updateUserQuota(userId: UUID, newLimit: Integer) void
+        +viewSystemLogs() List~String~
+    }
+
+    class Document {
+        -docId: UUID
+        -fileName: String
+        -fileSizeMB: Double
+        -format: String
+        +validateSize() Boolean
+        +extractRawText() String
+    }
+
+    class ExtractionJob {
+        -jobId: UUID
+        -promptText: String
+        -status: String
+        -createdAt: DateTime
+        +executeWithLLM() void
+        +cancelJob() void
+    }
+
+    class ExportFile {
+        -exportId: UUID
+        -structuredData: String
+        -formatType: String
+        +generateCSV() File
+        +generateJSON() File
+    }
+
+    %% Зв'язки
+    User <|-- RegisteredUser : Наслідування (Inheritance)
+    User <|-- Admin : Наслідування (Inheritance)
+    
+    RegisteredUser "1" --> "0..*" ExtractionJob : Асоціація (Association)
+    
+    ExtractionJob "0..*" o-- "1" Document : Агрегація (Aggregation)
+    
+    ExtractionJob "1" *-- "0..1" ExportFile : Композиція (Composition)

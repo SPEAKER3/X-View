@@ -1,0 +1,43 @@
+sequenceDiagram
+    autonumber
+    actor U as Зареєстрований користувач
+    participant UI as Веб-інтерфейс
+    participant BE as API Сервер (ASP.NET)
+    participant DB as База даних (PostgreSQL)
+    participant LLM as External LLM API
+
+    U->>+UI: Вводить промпт та натискає "Generate"
+    
+    %% Синхронне повідомлення до сервера
+    UI->>+BE: POST /api/extract (docId, promptText)
+    
+    %% Перевірка квоти
+    BE->>+DB: SELECT квота FROM Users WHERE id = userId
+    DB-->>-BE: Квота доступна (повернення)
+
+    BE->>BE: Формування запиту (Текст документа + Промпт)
+
+    %% Комбінований фрагмент LOOP (Цикл для NFR-R-02)
+    loop Максимум 3 спроби
+        BE->>+LLM: Відправка тексту на обробку
+        
+        %% Комбінований фрагмент ALT (Альтернатива)
+        alt Відповідь успішна
+            LLM-->>BE: 200 OK (Структурований JSON)
+        else Тайм-аут або помилка сервера LLM
+            LLM-->>-BE: 504 Gateway Timeout
+            BE->>BE: Затримка перед повторною спробою (Retry)
+        end
+    end
+
+    %% Комбінований фрагмент ALT (Фінальний результат)
+    alt Дані успішно витягнуто
+        BE->>+DB: INSERT INTO ExtractionJob (дані, статус)
+        DB-->>-BE: Підтвердження збереження історії
+        BE-->>UI: 200 OK (Дані для таблиці)
+        UI-->>U: Відображення таблиці (Preview)
+    else Усі 3 спроби завершилися невдачею
+        BE-->>-UI: 503 Service Unavailable
+        UI-->>-U: Відображення повідомлення про помилку LLM
+    end
+    
