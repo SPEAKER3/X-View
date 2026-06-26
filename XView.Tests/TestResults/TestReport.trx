@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f1e838e5-4ee8-4a82-bcab-599beea5d4e2" name="avior@DESKTOP-UF7PFH7 2026-06-26 16:06:06" runUser="DESKTOP-UF7PFH7\avior" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-06-26T16:06:06.3576101+03:00" queuing="2026-06-26T16:06:06.3576104+03:00" start="2026-06-26T16:06:05.2817101+03:00" finish="2026-06-26T16:06:06.3628076+03:00" />
+  <TestSettings name="default" id="9c55d8f6-57b7-417f-af52-3ab0f61b0a30">
+    <Deployment runDeploymentRoot="avior_DESKTOP-UF7PFH7_2026-06-26_16_06_06" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="2c368479-4ef5-495e-b136-8f441d54fa7a" testId="6761135a-013a-0bae-8787-35c25d81cc57" testName="XView.Tests.UnitTest1.Test1" computerName="DESKTOP-UF7PFH7" duration="00:00:00.0019851" startTime="2026-06-26T16:06:06.2409995+03:00" endTime="2026-06-26T16:06:06.2491782+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c368479-4ef5-495e-b136-8f441d54fa7a" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="XView.Tests.UnitTest1.Test1" storage="c:\users\avior\desktop\sharaga\prg_d\x-view\xview.tests\bin\debug\net10.0\xview.tests.dll" id="6761135a-013a-0bae-8787-35c25d81cc57">
+      <Execution id="2c368479-4ef5-495e-b136-8f441d54fa7a" />
+      <TestMethod codeBase="C:\Users\avior\Desktop\SHARAGA\PRG_D\X-View\XView.Tests\bin\Debug\net10.0\XView.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="XView.Tests.UnitTest1" name="Test1" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6761135a-013a-0bae-8787-35c25d81cc57" executionId="2c368479-4ef5-495e-b136-8f441d54fa7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.31]   Discovering: XView.Tests&#xD;
+[xUnit.net 00:00:00.34]   Discovered:  XView.Tests&#xD;
+[xUnit.net 00:00:00.36]   Starting:    XView.Tests&#xD;
+[xUnit.net 00:00:00.40]   Finished:    XView.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
