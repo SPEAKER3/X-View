@@ -35,6 +35,6 @@
 
 1. Склонуйте репозиторій:
    ```bash
-   git clone [https://github.com/temniu/x-view.git](https://github.com/temniu/x-view.git)
+   git clone [https://github.com/SPEAKER3/X-View.git](https://github.com/SPEAKER3/X-View.git)
    cd x-view
 
