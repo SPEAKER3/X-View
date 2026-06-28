@@ -7,12 +7,15 @@ namespace XView.Core
     /// Відповідає за процес обробки документа через зовнішнє LLM API.
     /// Керує статусом виконання та логікою повторних спроб (retry logic).
     /// </summary>
+    
+    public enum JobStatus { Pending, Processing, Completed, Failed }
     public class ExtractionJob
     {
         public Guid JobId { get; set; } = Guid.NewGuid();
-        public string PromptText { get; set; }
-        public string Status { get; set; } = "Pending";
+        public string PromptText { get; set; } = string.Empty;
+        public JobStatus Status { get; set; } = JobStatus.Pending;
         public Document TargetDocument { get; set; }
+        private static readonly Random _rnd = new Random();
 
         /// <summary>
         /// Запускає процес екстракції даних із використанням механізму повторних спроб у разі збою мережі.
@@ -46,7 +49,7 @@ namespace XView.Core
                         throw new Exception("LLM API повернула порожню відповідь.");
                     }
 
-                    Status = "Completed";
+                    Status = JobStatus.Completed;;
                     break; // Успішне виконання — достроковий вихід із циклу
                 }
                 catch (HttpRequestException ex)
@@ -56,7 +59,7 @@ namespace XView.Core
                     // Якщо це була остання спроба, перериваємо процес та викидаємо помилку
                     if (currentTry == maxRetries)
                     {
-                        Status = "Failed";
+                        Status = JobStatus.Failed;
                         throw new TimeoutException("Усі 3 спроби підключення до LLM API завершилися невдачею.", ex);
                     }
                     
@@ -69,8 +72,7 @@ namespace XView.Core
         }
         private async Task<string> MockLLMCallAsync(string prompt)
         {
-            var rnd = new Random();
-            if (rnd.Next(0, 10) < 5) 
+            if (_rnd.Next(0, 10) < 5) 
                 throw new HttpRequestException("504 Gateway Timeout");
 
             await Task.Delay(500);

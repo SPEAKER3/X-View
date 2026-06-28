@@ -7,9 +7,9 @@ namespace XView.Core
     public class Document
     {
         public Guid DocId { get; set; } = Guid.NewGuid();
-        public string FileName { get; set; }
+        public string FileName { get; set; } = string.Empty;
         public double FileSizeMB { get; set; }
-        public string Format { get; set; }
+        public string Format { get; set; } = string.Empty;
 
         /// <summary>
         /// Перевіряє документ на відповідність бізнес-правилам (наявність імені, розмір, формат).
